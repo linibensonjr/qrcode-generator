@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRCode Generator</title>
+</head>
+<body>
+    <main>
+        <form action="" method="POST" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-outline-secondary" value="Save and Preview" style="width: 50%; text-align: center;">
+            
+        </form>
+
+        <div class="results">
+            {% for qr in qrcodes %}
+            {{ qr.id }}
+            {{ qr.text }}
+           <b> {{ qr.qr_name}}</b>
+            <img src="C:/Users/IniobongBenson/Documents/Coding/django/qrcode/qrcodes/media/{{qr.qr_name}}.png" alt="">
+            <img src="C:\Users\IniobongBenson\Documents\Coding\django\qrcode\qrcodes\media\hello.png" alt="">
+            {% endfor %}
+        </div>
+        <img src="C:\Users\IniobongBenson\Documents\Coding\django\qrcode\qrcodes\media\hello.png" alt="">
+    </main>
+    
+</body>
+</html>
