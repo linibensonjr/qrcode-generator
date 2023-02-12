@@ -3,10 +3,12 @@ from .forms import QRCodeForm
 from .models import QRCode
 from django.conf import settings as django_settings
 import qrcode, os
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 
 # Create your views here.
 def index(request):
-    # path = os.path.join(django_settings.STATIC_ROOT)
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static')
     if request.method == "POST":
         form = QRCodeForm(request.POST, request.FILES)
         if form.is_valid():
@@ -24,9 +26,14 @@ def index(request):
             qr.make(fit=True)
 
             img = qr.make_image(fill_color="black", back_color="white")
-            # img = qrcode.make(form.cleaned_data['text'])
-            img.save('{}.png'.format(form.cleaned_data['qr_name']))
-            
+            image_path = 'genqrcode/static/img/{}.png'.format(form.cleaned_data['qr_name'])
+            img.save(image_path)
+            # image_file = InMemoryUploadedFile(img, None, "image.jpeg", "image/jpeg", img.tell, None)
+
+            # model = QRCode()
+            # model.image = img
+            # model.save()
+
             return redirect(details, pk=code.pk)
     else:
         form = QRCodeForm()
