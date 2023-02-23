@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
     <title>QRCode Generator</title>
 </head>
 <body>
@@ -12,20 +14,21 @@
         <form action="" method="POST" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" class="btn btn-outline-secondary" value="Save and Preview" style="width: 50%; text-align: center;">
+            <input type="submit" class="btn btn-outline-secondary" value="Generate QR" style="width: 50%; text-align: center;">
             
         </form>
 
         <div class="results">
             {% for qr in qrcodes %}
-            {{ qr.id }}
-            {{ qr.text }}
+            {{ qr.id }}<br>
+            {{ qr.text }}<br>
            <b> {{ qr.qr_name}}</b>
-            <img src="C:/Users/IniobongBenson/Documents/Coding/django/qrcode/qrcodes/media/{{qr.qr_name}}.png" alt="">
+            <img src="{{qr.image}}.jpeg" alt="">
             <img src="C:\Users\IniobongBenson\Documents\Coding\django\qrcode\qrcodes\media\hello.png" alt="">
             {% endfor %}
         </div>
-        <img src="C:\Users\IniobongBenson\Documents\Coding\django\qrcode\qrcodes\media\hello.png" alt="">
+        <p>image</p>
+        <img src="C:\Users\IniobongBenson\Documents\Repo\qrcode-generator\qrcode\media\ini.png" alt="">
     </main>
     
 </body>

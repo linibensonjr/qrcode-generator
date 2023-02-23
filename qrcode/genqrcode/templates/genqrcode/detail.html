@@ -13,7 +13,7 @@
     <div class="qrcode">
         {% for qr in entry %}
         <p>Message: {{ qr.text }}</p>
-        <img src="{% static 'media/hello.png' %}" alt="">
+        <img src="{% static 'img/'%}{{qr.qr_name}}.png" alt="">
             
         {% endfor %}
     </div>
