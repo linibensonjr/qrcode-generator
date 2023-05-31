@@ -10,7 +10,46 @@
     <title>QRCode Generator</title>
 </head>
 <body>
-    <main>
+<style>
+    .container {
+        position: relative;
+        /* Adjust as per your image dimensions */
+    }
+
+    .res img {
+        /* filter: blur(5px); */
+        display: none;
+    }
+
+    #overlayButton {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .res {
+        width: 50%;
+        position: relative;
+        height: 30vh;
+    }
+
+    .res button {
+        position: absolute;
+        top: 55%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+    }
+</style>
+    
+    <main class="container">
         <form action="" method="POST" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
@@ -20,16 +59,31 @@
 
         <div class="results">
             {% for qr in qrcodes %}
-            {{ qr.id }}<br>
-            {{ qr.text }}<br>
-           <b> {{ qr.qr_name}}</b>
-            <img src="{{qr.image}}.jpeg" alt="">
-            <img src="C:\Users\IniobongBenson\Documents\Coding\django\qrcode\qrcodes\media\hello.png" alt="">
+            <div class="res">
+            <!-- {{ qr.id }}<br>
+            {{ qr.text }}<br> -->
+           <b> {{ qr.qr_name}}</b><br>
+           
+                <img id="myImage{{qr.id}}" src="{% static 'img/'|add:qr.qr_name|add:'.png' %}" alt="" width="60%">
+                <button class="btn btn-outline-secondary" id="overlayButton{{qr.id}}" >Show Code</button>
+            </div>
             {% endfor %}
         </div>
         <p>image</p>
         <img src="C:\Users\IniobongBenson\Documents\Repo\qrcode-generator\qrcode\media\ini.png" alt="">
     </main>
     
+    <script>
+        {% for qr in qrcodes %}
+        document.getElementById("overlayButton{{qr.id}}").addEventListener("click", function() {
+            var image = document.getElementById("myImage{{qr.id}}");
+            var button = document.getElementById("overlayButton{{qr.id}}");
+
+            image.style.display = "block";
+            button.style.display = "none";
+        }
+        );
+        {% endfor %}
+    </script>
 </body>
 </html>
