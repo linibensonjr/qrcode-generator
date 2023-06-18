@@ -9,14 +9,37 @@
     <title>Details</title>
 </head>
 <body>
+    <style>
+        .qrcode{
+            text-align: center;
+            background-color: aqua;
+        }
+        img{
+            width: 50%;
+            display: none;
+            
+        }
+    </style>
 
     <div class="qrcode">
         {% for qr in entry %}
         <p>Message: {{ qr.text }}</p>
-        <img src="{% static 'img/'%}{{qr.qr_name}}.png" alt="">
-            
+        <img id="myImage" src="{% static 'img/'%}{{qr.qr_name}}.png" alt="">
+        <button id="overlayButton" onclick="showImage()">Show Code</button>
         {% endfor %}
     </div>
-    
+
+
+
+    <script>
+        function showImage() {
+        var image = document.getElementById("myImage");
+        var button = document.getElementById("overlayButton");
+
+        image.style.display = "block";
+        button.style.display = "none";
+}
+
+    </script>
 </body>
 </html>
